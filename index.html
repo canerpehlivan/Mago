@@ -4,235 +4,167 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Special Question for Mago</title>
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    overflow: hidden;
-    position: relative;
-  }
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+  position: relative;
+}
 
-  .hearts-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
+/* Floating Hearts */
+.hearts-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
 
-  .floating-heart {
-    position: absolute;
-    bottom: -50px;
-    font-size: 20px;
-    animation: floatUp linear infinite;
-    opacity: 0.6;
-  }
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.6;
+}
 
-  @keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-  }
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
 
-  .card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 24px;
-    padding: 40px 36px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(233, 30, 99, 0.25);
-    z-index: 10;
-    position: relative;
-    max-width: 460px;
-    width: 90%;
-    animation: fadeInUp 0.8s ease;
-  }
+/* Card */
+.card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(233,30,99,0.25);
+  z-index: 10;
+  position: relative;
+  max-width: 460px;
+  width: 92%;
+}
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+.card h1 {
+  font-size: 1.9rem;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
 
-  .card h1 {
-    font-size: 2rem;
-    color: #c2185b;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
+.heart-icon {
+  font-size: 3rem;
+  margin: 16px 0;
+}
 
-  .card .heart-icon {
-    font-size: 3rem;
-    display: block;
-    margin: 16px auto;
-    animation: pulse 1.2s ease infinite;
-  }
+/* Buttons */
+.buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  flex-wrap: nowrap;
+}
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-  }
+.btn-yes, .btn-no {
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  min-width: 120px;
+}
 
-  .buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    min-height: 80px;
-    position: relative;
-  }
+.btn-yes {
+  border: none;
+  background: linear-gradient(135deg, #e91e63, #c2185b);
+  color: white;
+}
 
-  .btn-yes {
-    padding: 14px 40px;
-    font-size: 1.2rem;
-    font-family: inherit;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #e91e63, #c2185b);
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
+.btn-no {
+  border: 2px solid #c2185b;
+  background: white;
+  color: #c2185b;
+  position: relative; /* FIXED */
+}
 
-  .btn-yes:hover {
-    transform: scale(1.08);
-    box-shadow: 0 6px 25px rgba(233, 30, 99, 0.5);
-  }
+/* Party Screen */
+.party-screen {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #fce4ec, #fff9c4, #f8bbd0);
+  z-index: 100;
+  overflow-y: auto;
+  text-align: center;
+  padding: 30px 20px 60px;
+}
 
-  .btn-no {
-    padding: 14px 40px;
-    font-size: 1.2rem;
-    font-family: inherit;
-    border: 2px solid #c2185b;
-    border-radius: 50px;
-    cursor: pointer;
-    background: white;
-    color: #c2185b;
-    font-weight: bold;
-    transition: all 0.3s;
-    position: absolute;
-    user-select: none;
-    -webkit-user-select: none;
-    z-index: 20;
-  }
+.party-screen.active {
+  display: block;
+}
 
-  .btn-no.runaway {
-    position: fixed;
-    transition: all 0.25s ease;
-  }
+.party-content h1 {
+  font-size: 2.2rem;
+  color: #c2185b;
+  margin: 20px 0 10px;
+}
 
-  .no-message {
-    margin-top: 14px;
-    font-size: 0.95rem;
-    color: #e91e63;
-    font-style: italic;
-    min-height: 1.4em;
-    animation: fadeIn 0.3s ease;
-  }
+.subtitle {
+  font-size: 1.1rem;
+  color: #880e4f;
+  margin-bottom: 24px;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+/* Meme Grid */
+.meme-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .party-screen {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, #fce4ec, #fff9c4, #f8bbd0);
-    z-index: 100;
-    overflow-y: auto;
-    animation: fadeIn 0.5s ease;
-  }
+.meme-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(233,30,99,0.15);
+}
 
-  .party-screen.active {
-    display: block;
-  }
+.meme-card img {
+  width: 100%;
+  display: block;
+}
 
-  .party-content {
-    text-align: center;
-    padding: 30px 20px 60px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
+.caption {
+  padding: 12px;
+  font-weight: bold;
+  color: #c2185b;
+}
 
-  .party-content h1 {
-    font-size: 2.2rem;
-    color: #c2185b;
-    margin: 20px 0 10px;
-    animation: bounceIn 0.6s ease;
-  }
+/* Confetti */
+.confetti-piece {
+  position: fixed;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
 
-  @keyframes bounceIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .party-content .subtitle {
-    font-size: 1.1rem;
-    color: #880e4f;
-    margin-bottom: 24px;
-  }
-
-  .meme-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 0 10px;
-  }
-
-  .meme-card {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(233, 30, 99, 0.15);
-    animation: popIn 0.5s ease backwards;
-  }
-
-  .meme-card:nth-child(1) { animation-delay: 0.1s; }
-  .meme-card:nth-child(2) { animation-delay: 0.3s; }
-  .meme-card:nth-child(3) { animation-delay: 0.5s; }
-  .meme-card:nth-child(4) { animation-delay: 0.7s; }
-  .meme-card:nth-child(5) { animation-delay: 0.9s; }
-  .meme-card:nth-child(6) { animation-delay: 1.1s; }
-
-  @keyframes popIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-
-  .meme-card img {
-    width: 100%;
-    display: block;
-  }
-
-  .meme-card .caption {
-    padding: 12px;
-    font-size: 1rem;
-    color: #c2185b;
-    font-weight: bold;
-  }
-
-  .confetti-piece {
-    position: fixed;
-    z-index: 200;
-    pointer-events: none;
-    animation: confettiFall linear forwards;
-  }
-
-  @keyframes confettiFall {
-    0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-  }
+@keyframes fall {
+  0% { transform: translateY(-10px); opacity:1; }
+  100% { transform: translateY(110vh); opacity:0; }
+}
 </style>
 </head>
 <body>
@@ -240,166 +172,100 @@
 <div class="hearts-bg" id="heartsBg"></div>
 
 <div class="card" id="questionCard">
-  <span class="heart-icon">&#10084;&#65039;</span>
+  <div class="heart-icon">❤️</div>
   <h1>Mago, will you be my Valentine?</h1>
-  <div class="buttons" id="buttonsContainer">
-    <button class="btn-yes" id="btnYes" onclick="sayYes()">Yes!</button>
+  <div class="buttons">
+    <button class="btn-yes" onclick="sayYes()">Yes!</button>
     <button class="btn-no" id="btnNo">No</button>
   </div>
-  <div class="no-message" id="noMessage"></div>
 </div>
 
 <div class="party-screen" id="partyScreen">
   <div class="party-content">
-    <h1>YAAAAY! &#127881;&#10084;&#65039;&#127881;</h1>
+    <h1>yesssss 🇭🇷🇹🇷 🇭🇷🇹🇷 🇭🇷🇹🇷 🎉❤️</h1>
     <p class="subtitle">I knew you'd say yes! Now let's celebrate with some party cats!</p>
     <div class="meme-grid" id="memeGrid"></div>
   </div>
 </div>
 
 <script>
-  var heartsBg = document.getElementById('heartsBg');
-  var heartChars = ['\u2764\uFE0F', '\uD83D\uDC95', '\uD83D\uDC96', '\uD83D\uDC97', '\uD83D\uDC93', '\u2763\uFE0F'];
+/* Hearts */
+const heartsBg = document.getElementById('heartsBg');
+setInterval(() => {
+  const heart = document.createElement('span');
+  heart.className = 'floating-heart';
+  heart.textContent = ['❤️','💖','💗','💘'][Math.floor(Math.random()*4)];
+  heart.style.left = Math.random()*100+'%';
+  heart.style.animationDuration = (5+Math.random()*5)+'s';
+  heartsBg.appendChild(heart);
+  setTimeout(()=>heart.remove(),10000);
+},400);
 
-  function spawnHeart() {
-    var heart = document.createElement('span');
-    heart.className = 'floating-heart';
-    heart.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
-    heart.style.left = Math.random() * 100 + '%';
-    heart.style.fontSize = (14 + Math.random() * 20) + 'px';
-    heart.style.animationDuration = (5 + Math.random() * 7) + 's';
-    heartsBg.appendChild(heart);
-    setTimeout(function() { heart.remove(); }, 12000);
+/* No Button Dodge */
+const btnNo = document.getElementById('btnNo');
+btnNo.addEventListener('mouseover', moveNo);
+btnNo.addEventListener('touchstart', e => { e.preventDefault(); moveNo(); });
+
+function moveNo(){
+  const padding = 20;
+  const maxX = window.innerWidth - btnNo.offsetWidth - padding;
+  const maxY = window.innerHeight - btnNo.offsetHeight - padding;
+  btnNo.style.position='fixed';
+  btnNo.style.left = padding + Math.random()*maxX + 'px';
+  btnNo.style.top = padding + Math.random()*maxY + 'px';
+}
+
+/* YES */
+function sayYes(){
+  document.getElementById('questionCard').style.display='none';
+  document.getElementById('partyScreen').classList.add('active');
+  launchConfetti();
+  loadMemes();
+}
+
+/* Confetti */
+function launchConfetti(){
+  for(let i=0;i<80;i++){
+    const piece=document.createElement('span');
+    piece.className='confetti-piece';
+    piece.textContent=['🎉','✨','❤️','🎊'][Math.floor(Math.random()*4)];
+    piece.style.left=Math.random()*100+'%';
+    piece.style.fontSize=(14+Math.random()*20)+'px';
+    piece.style.animationDuration=(2+Math.random()*3)+'s';
+    document.body.appendChild(piece);
+    setTimeout(()=>piece.remove(),5000);
   }
+}
 
-  setInterval(spawnHeart, 400);
+/* Cats */
+function loadMemes(){
+  const memeGrid=document.getElementById('memeGrid');
+  memeGrid.innerHTML='';
 
-  var btnNo = document.getElementById('btnNo');
-  var btnYes = document.getElementById('btnYes');
-  var noMessage = document.getElementById('noMessage');
-  var dodgeCount = 0;
-  var yesScale = 1;
-
-  var dodgeMessages = [
-    "Hmm, are you sure?",
-    "Think again...",
-    "Really?? Look at my face",
-    "The cat said you can't click No",
-    "Nope, try again!",
-    "That button doesn't work!",
-    "I'm too fast for you!",
-    "You'll never catch me!",
-    "Just click Yes already!",
-    "The No button has left the chat"
+  const cats=[
+    {url:"https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif",caption:"Us celebrating Valentine's Day!"},
+    {url:"https://media.giphy.com/media/lkK7hFTOp1s4g/giphy.gif",caption:"Party time! DJ Cat!"},
+    {url:"https://media.giphy.com/media/l0MYt5jPR6QX5APm0/giphy.gif",caption:"When she said YES!"},
+    {url:"https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",caption:"Cat party never stops!"},
+    {url:"https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif",caption:"Happy Valentine's Day, Mago!"},
+    {url:"https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",caption:"Cats approve this relationship!"}
   ];
 
-  function moveNoButton() {
-    dodgeCount++;
-    var msg = dodgeMessages[Math.min(dodgeCount - 1, dodgeMessages.length - 1)];
-    noMessage.textContent = msg;
-    noMessage.style.animation = 'none';
-    noMessage.offsetHeight;
-    noMessage.style.animation = 'fadeIn 0.3s ease';
-
-    yesScale += 0.08;
-    btnYes.style.transform = 'scale(' + Math.min(yesScale, 1.8) + ')';
-
-    var noScale = Math.max(1 - dodgeCount * 0.05, 0.5);
-
-    btnNo.classList.add('runaway');
-    var padding = 20;
-    var btnW = btnNo.offsetWidth;
-    var btnH = btnNo.offsetHeight;
-    var maxX = window.innerWidth - btnW - padding;
-    var maxY = window.innerHeight - btnH - padding;
-
-    var newX, newY;
-    var yesRect = btnYes.getBoundingClientRect();
-    do {
-      newX = padding + Math.random() * (maxX - padding);
-      newY = padding + Math.random() * (maxY - padding);
-    } while (
-      newX < yesRect.right + 20 && newX + btnW > yesRect.left - 20 &&
-      newY < yesRect.bottom + 20 && newY + btnH > yesRect.top - 20
-    );
-
-    btnNo.style.left = newX + 'px';
-    btnNo.style.top = newY + 'px';
-    btnNo.style.transform = 'scale(' + noScale + ')';
-  }
-
-  btnNo.addEventListener('mouseenter', function(e) {
-    moveNoButton();
+  cats.forEach(cat=>{
+    const card=document.createElement('div');
+    card.className='meme-card';
+    const img=document.createElement('img');
+    img.src=cat.url;
+    img.alt=cat.caption;
+    const cap=document.createElement('div');
+    cap.className='caption';
+    cap.textContent=cat.caption;
+    card.appendChild(img);
+    card.appendChild(cap);
+    memeGrid.appendChild(card);
   });
-
-  btnNo.addEventListener('touchstart', function(e) {
-    e.preventDefault();
-    moveNoButton();
-  }, { passive: false });
-
-  btnNo.addEventListener('click', function(e) {
-    e.preventDefault();
-    moveNoButton();
-  });
-
-  function sayYes() {
-    document.getElementById('questionCard').style.display = 'none';
-    var partyScreen = document.getElementById('partyScreen');
-    partyScreen.classList.add('active');
-    launchConfetti();
-    loadMemes();
-  }
-
-  function launchConfetti() {
-    var shapes = ['\u2764\uFE0F', '\uD83C\uDF89', '\u2728', '\uD83C\uDF8A', '\uD83D\uDC96', '\u2B50', '\uD83C\uDF1F'];
-    var count = 0;
-
-    function burst() {
-      for (var i = 0; i < 8; i++) {
-        var piece = document.createElement('span');
-        piece.className = 'confetti-piece';
-        piece.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-        piece.style.left = Math.random() * 100 + '%';
-        piece.style.top = '-20px';
-        piece.style.fontSize = (12 + Math.random() * 24) + 'px';
-        piece.style.animationDuration = (2 + Math.random() * 3) + 's';
-        document.body.appendChild(piece);
-        setTimeout(function() { piece.remove(); }, 5000);
-      }
-      count++;
-      if (count < 15) setTimeout(burst, 300);
-    }
-    burst();
-  }
-
-  function loadMemes() {
-    var memeGrid = document.getElementById('memeGrid');
-
-    var catMemes = [
-      { url: "<https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif>", caption: "Us celebrating Valentine's Day!" },
-      { url: "<https://media.giphy.com/media/lkK7hFTOp1s4g/giphy.gif>", caption: "Party time! DJ Cat is here!" },
-      { url: "<https://media.giphy.com/media/l0MYt5jPR6QX5APm0/giphy.gif>", caption: "When she said YES!" },
-      { url: "<https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif>", caption: "Cat party never stops!" },
-      { url: "<https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif>", caption: "Happy Valentine's Day, Mago!" },
-      { url: "<https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif>", caption: "Cats approve this relationship!" }
-    ];
-
-    catMemes.forEach(function(meme) {
-      var card = document.createElement('div');
-      card.className = 'meme-card';
-      var img = document.createElement('img');
-      img.src = meme.url;
-      img.alt = meme.caption;
-      img.loading = 'lazy';
-      img.onerror = function() { card.style.display = 'none'; };
-      var caption = document.createElement('div');
-      caption.className = 'caption';
-      caption.textContent = meme.caption;
-      card.appendChild(img);
-      card.appendChild(caption);
-      memeGrid.appendChild(card);
-    });
-  }
+}
 </script>
+
 </body>
 </html>
