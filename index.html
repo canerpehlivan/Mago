@@ -234,35 +234,58 @@ function sayYes(){
 
 /* Falling Croatian + Turkish flags */
 function launchCelebration(){
-  const emojis=["🇭🇷","🇹🇷","❤️","🎉","✨"];
-  for(let i=0;i<120;i++){
-    const el=document.createElement("span");
-    el.className="fall-emoji";
-    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left=Math.random()*100+"%";
-    el.style.fontSize=(16+Math.random()*24)+"px";
-    el.style.animationDuration=(2+Math.random()*3)+"s";
+  const emojis = ["🇭🇷","🇹🇷","❤️","💖","✨","🎉"];
+  let duration = 4000; // how long rain lasts
+  let end = Date.now() + duration;
+
+  let interval = setInterval(() => {
+    if(Date.now() > end){
+      clearInterval(interval);
+      return;
+    }
+
+    const el = document.createElement("span");
+    el.className = "fall-emoji";
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left = Math.random()*100 + "%";
+    el.style.fontSize = (16 + Math.random()*24) + "px";
+    el.style.animationDuration = (3 + Math.random()*2) + "s";
     document.body.appendChild(el);
+
     setTimeout(()=>el.remove(),5000);
-  }
+
+  }, 80); // controls density of rain
 }
 
 /* Only 3 happy dancing cats */
 function loadCats(){
-  const grid=document.getElementById("memeGrid");
-  grid.innerHTML="";
+  const grid = document.getElementById("memeGrid");
+  grid.innerHTML = "";
 
-  const cats=[
-  "https://media.giphy.com/media/l0MYt5jPR6QX5APm0/giphy.gif",
-  "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
-  "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
+  const cats = [
+    // Cat blowing heart kiss
+    "https://media.tenor.com/4fK4g5xX1O8AAAAC/cat-kiss.gif",
+
+    // Two cats cuddling
+    "https://media.tenor.com/8L0P4xN6S1gAAAAC/cats-cuddle.gif",
+
+    // Cute heart eyes cat
+    "https://media.tenor.com/Y8Qm8G8S8x8AAAAC/cat-heart-eyes.gif"
   ];
 
   cats.forEach(url=>{
-    const card=document.createElement("div");
-    card.className="meme-card";
-    const img=document.createElement("img");
-    img.src=url;
+    const card = document.createElement("div");
+    card.className = "meme-card";
+
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "Valentine Cat";
+    img.loading = "lazy";
+
+    img.onerror = function(){
+      card.remove();
+    };
+
     card.appendChild(img);
     grid.appendChild(card);
   });
