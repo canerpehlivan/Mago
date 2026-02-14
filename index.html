@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Mago ❤️</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
@@ -68,6 +67,7 @@ body{
   color:white;
   transition:.2s;
 }
+.btn-yes:hover{transform:scale(1.05);}
 .btn-no{
   border:2px solid #c2185b;
   background:white;
@@ -108,9 +108,8 @@ body{
   margin:0 auto;
 }
 
-.meme-card iframe,.meme-card .tenor-gif-embed{
+.meme-card img{
   width:100%;
-  height:280px;
   border-radius:16px;
 }
 
@@ -147,29 +146,21 @@ body{
   <div class="party-content">
     <h1>yesssss ❤️</h1>
     <div class="meme-grid" id="memeGrid">
-      <!-- First GIF: Giphy -->
+      <!-- First GIF -->
       <div class="meme-card">
-        <iframe src="https://giphy.com/embed/MDJ9IbxxvDUQM" frameborder="0" allowfullscreen></iframe>
+        <img src="https://i.makeagif.com/media/12-31-2023/iFU7lY.gif" alt="Happy Valentine Cat 1">
       </div>
-
-      <!-- Second GIF: Tenor dancing cat -->
+      <!-- Second GIF -->
       <div class="meme-card">
-        <div class="tenor-gif-embed" data-postid="6980277197144420070" data-share-method="host" data-aspect-ratio="0.566265" data-width="100%">
-          <a href="https://tenor.com/view/cat-cat-jumping-cat-excited-excited-dance-gif-6980277197144420070">Cat Cat Jumping GIF</a> from <a href="https://tenor.com/search/cat-gifs">Cat GIFs</a>
-        </div>
+        <img src="https://64.media.tumblr.com/c3683708e4cdd0cb40c08b765c27de7a/tumblr_on395xCmfK1v263cso1_400.gif" alt="Happy Valentine Cat 2">
       </div>
-
-      <!-- Third GIF: Tenor cute kitten -->
+      <!-- Third GIF -->
       <div class="meme-card">
-        <div class="tenor-gif-embed" data-postid="7690720570096135312" data-share-method="host" data-aspect-ratio="1" data-width="100%">
-          <a href="https://tenor.com/view/cute-adorable-kitty-kitten-kittens-gif-7690720570096135312">Cute Adorable GIF</a> from <a href="https://tenor.com/search/cute-gifs">Cute GIFs</a>
-        </div>
+        <img src="https://media.tenor.com/IBxdvql1Mk0AAAAM/cat-kiss.gif" alt="Happy Valentine Cat 3">
       </div>
     </div>
   </div>
 </div>
-
-<script async src="https://tenor.com/embed.js"></script>
 
 <script>
 const heartsBg=document.getElementById("heartsBg");
@@ -222,11 +213,7 @@ function sayYes(){
 
 function launchCelebration(){
   const emojis=["🇭🇷","🇹🇷","❤️","💖","✨","🎉","💘"];
-
-  for(let i=0;i<60;i++){
-    createEmoji(emojis,2+Math.random()*2);
-  }
-
+  for(let i=0;i<60;i++){createEmoji(emojis,2+Math.random()*2);}
   let end=Date.now()+5000;
   let rain=setInterval(()=>{
     if(Date.now()>end){clearInterval(rain);return;}
